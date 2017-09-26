@@ -1,0 +1,3 @@
+rootProject.name = 'WaiterApp'
+
+include ':app'
