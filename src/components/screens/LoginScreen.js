@@ -12,7 +12,7 @@ export default class LoginScreen extends Component {
         <Item>
           <Input placeholder="Password" />
         </Item>
-        <Button full onPress={() => this.props.navigation.navigate("Register")}>
+        <Button full onPress={() => this.props.navigation.navigate("MainDrawer")}>
           <Text>
             Login
           </Text>
