@@ -1,27 +1,20 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react"
+import { Provider } from "react-redux"
+import { createStore } from "redux"
 
-import Login from "./components/Login"
-
-export default Login
+import AppWithNavigationState, { AppNavigator } from "./navigators/AppNavigator"
+import AppReducer from "./reducers"
 
 class App extends React.Component {
+  store = createStore(AppReducer)
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up Apps.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+      <Provider store={this.store}>
+        <AppWithNavigationState />
+      </Provider>
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
