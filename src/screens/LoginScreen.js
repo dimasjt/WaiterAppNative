@@ -22,12 +22,12 @@ export default class LoginScreen extends Component {
         </Item>
         <Grid>
           <Col>
-            <Button full>
+            <Button full onPress={() => this.props.navigation.navigate("MainDrawer")}>
               <Text>Login</Text>
             </Button>
           </Col>
           <Col>
-            <Button full>
+            <Button full onPress={() => this.props.navigation.navigate("Register")}>
               <Text>Register</Text>
             </Button>
           </Col>

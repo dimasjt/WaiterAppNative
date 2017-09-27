@@ -1,6 +1,11 @@
 import React, { Component } from "react"
-import { Text } from "react-native"
-import { Form, Item, Input, Button } from "native-base"
+import {
+  Form,
+  Item,
+  Input,
+  Button,
+  Text
+} from "native-base"
 
 class RegisterScreen extends Component {
   render() {
