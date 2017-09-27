@@ -1,6 +1,14 @@
 import React, { Component } from "react"
-import { Text, View, StyleSheet } from "react-native"
-import { Button, Form, Item, Input } from "native-base"
+import { View, StyleSheet } from "react-native"
+import {
+  Button,
+  Form,
+  Item,
+  Input,
+  Grid,
+  Col,
+  Text,
+} from "native-base"
 
 export default class LoginScreen extends Component {
   render() {
@@ -12,11 +20,18 @@ export default class LoginScreen extends Component {
         <Item>
           <Input placeholder="Password" />
         </Item>
-        <Button full onPress={() => this.props.navigation.navigate("MainDrawer")}>
-          <Text>
-            Login
-          </Text>
-        </Button>
+        <Grid>
+          <Col>
+            <Button full>
+              <Text>Login</Text>
+            </Button>
+          </Col>
+          <Col>
+            <Button full>
+              <Text>Register</Text>
+            </Button>
+          </Col>
+        </Grid>
       </Form>
     )
   }
