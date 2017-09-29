@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet } from "react-native"
+import { View, StyleSheet, Alert, AsyncStorage } from "react-native"
 import {
   Button,
   Form,
@@ -9,21 +9,47 @@ import {
   Col,
   Text,
 } from "native-base"
+import { graphql, gql } from "react-apollo"
+import { connect } from "react-redux"
 
-export default class LoginScreen extends Component {
+class LoginScreen extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      email: "",
+      password: "",
+    }
+  }
+  login = () => {
+    const user = { email: "", password: "", ...this.state }
+    this.props.mutate({ variables: { user } }).then(({ data }) => {
+      Alert.alert("success", data.login.token)
+    }).catch(err => {
+      // Alert.alert("error", err)
+      console.log(err)
+    })
+  }
   render() {
     return (
       <Form>
         <Item>
-          <Input placeholder="Email" />
+          <Input
+            placeholder="Email"
+            onChangeText={(email) => this.setState({ email })}
+          />
         </Item>
         <Item>
-          <Input placeholder="Password" />
+          <Input
+            placeholder="Password"
+            secureTextEntry
+            onChangeText={(password) => this.setState({ password })}
+          />
         </Item>
         <Grid>
           <Col>
-            <Button full onPress={() => this.props.navigation.navigate("MainDrawer")}>
-              <Text>Login</Text>
+            <Button full onPress={this.login}>
+              <Text>Logins</Text>
             </Button>
           </Col>
           <Col>
@@ -37,6 +63,14 @@ export default class LoginScreen extends Component {
   }
 }
 
-const style = StyleSheet.create({
+const Connected = connect(state => state)(LoginScreen)
 
-})
+const LOGIN = gql`
+  mutation login($user: Auth!) {
+    login(user: $user) {
+      token
+    }
+  }
+`
+
+export default graphql(LOGIN)(Connected)
