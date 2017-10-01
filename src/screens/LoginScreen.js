@@ -24,10 +24,12 @@ class LoginScreen extends Component {
   login = () => {
     const user = { email: "", password: "", ...this.state }
     this.props.mutate({ variables: { user } }).then(({ data }) => {
-      Alert.alert("success", data.login.token)
-    }).catch(err => {
-      // Alert.alert("error", err)
-      console.log(err)
+      if (data.login.token) {
+        AsyncStorage.setItem("token", data.login.token)
+        Alert.alert("Alert", data.login.token)
+      }
+    }).catch(() => {
+      Alert.alert("Alert", "Invalid email or password")
     })
   }
   render() {
