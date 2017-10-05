@@ -7,7 +7,7 @@ import RegisterScreen from "../screens/RegisterScreen"
 
 import MainDrawer from "./MainDrawer"
 
-export const AppNavigator = StackNavigator({
+const SignedOut = StackNavigator({
   Login: {
     screen: LoginScreen,
     navigationOptions: {
@@ -20,16 +20,31 @@ export const AppNavigator = StackNavigator({
       title: "Register",
     },
   },
-  MainDrawer: {
+})
+
+export const AppNavigator = StackNavigator({
+  SignedIn: {
     screen: MainDrawer,
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
   },
+  SignedOut: {
+    screen: SignedOut,
+    navigationOptions: {
+      gesturesEnabled: false,
+    },
+  },
+}, {
+  headerMode: "none",
+  mode: "modal",
 })
 
 const AppWithNavigationState = ({ dispatch, nav }) => (
   <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
 )
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   nav: state.nav,
 })
 

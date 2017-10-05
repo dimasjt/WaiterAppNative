@@ -1,6 +1,7 @@
 const initialState = {
-  isLoggedIn: false
+  isLoggedIn: false,
 }
+
 function auth(state = initialState, action) {
   return state
 }

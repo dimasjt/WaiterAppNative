@@ -2,7 +2,7 @@ import React from "react"
 import { createStore } from "redux"
 import { ApolloProvider as Provider } from "react-apollo"
 
-import AppWithNavigationState, { AppNavigator } from "./navigators/AppNavigator"
+import AppWithNavigationState from "./navigators/AppNavigator"
 import AppReducer from "./reducers"
 
 import { apolloClient } from "./apollo"
