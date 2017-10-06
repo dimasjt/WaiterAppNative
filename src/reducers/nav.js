@@ -2,10 +2,7 @@ import { NavigationActions } from "react-navigation"
 
 import { AppNavigator } from "../navigators/AppNavigator"
 
-const loginAction = AppNavigator.router.getActionForPathAndParams("SignedOut")
-const initialState = AppNavigator.router.getStateForAction(loginAction)
-
-function nav(state = initialState, action) {
+function nav(state, action) {
   const nextState = AppNavigator.router.getStateForAction(action, state)
 
   return nextState || state

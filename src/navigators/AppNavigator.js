@@ -20,32 +20,29 @@ const SignedOut = StackNavigator({
       title: "Register",
     },
   },
+}, {
+  initialRouteName: "Login",
 })
 
 export const AppNavigator = StackNavigator({
-  SignedIn: {
-    screen: MainDrawer,
-    navigationOptions: {
-      gesturesEnabled: false,
-    },
-  },
   SignedOut: {
     screen: SignedOut,
-    navigationOptions: {
-      gesturesEnabled: false,
-    },
+  },
+  SignedIn: {
+    screen: MainDrawer,
   },
 }, {
   headerMode: "none",
-  mode: "modal",
+  initialRouteName: "SignedOut",
 })
 
-const AppWithNavigationState = ({ dispatch, nav }) => (
+const AppWithNavigationState = ({ dispatch, nav, auth }) => (
   <AppNavigator navigation={addNavigationHelpers({ dispatch, state: nav })} />
 )
 
 const mapStateToProps = (state) => ({
   nav: state.nav,
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps)(AppWithNavigationState)

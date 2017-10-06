@@ -16,7 +16,7 @@ import { NavigationActions } from "react-navigation"
 const resetAction = NavigationActions.reset({
   index: 0,
   actions: [
-    NavigationActions.navigate({ routeName: "MainDrawer" }),
+    NavigationActions.navigate({ routeName: "SignedIn" }),
   ],
 })
 
@@ -25,23 +25,26 @@ class LoginScreen extends Component {
     super()
 
     this.state = {
-      email: "rick@mailinator.com",
-      password: "letmein123!",
+      email: "",
+      password: "",
+    }
+  }
+  async componentWillMount() {
+    const token = await AsyncStorage.getItem("token")
+    if (token !== null) {
+      this.props.navigation.navigate("SignedIn")
     }
   }
   login = () => {
-    this.props.navigation.dispatch(resetAction)
-    // const user = { email: "", password: "", ...this.state }
-    // this.props.mutate({ variables: { user } }).then(({ data }) => {
-    //   if (data.login.token) {
-    //     // AsyncStorage.setItem("token", data.login.token)
-    //     debugger
-    //     this.props.navigation.navigate("MainDrawer")
-    //     Alert.alert("Alert", data.login.token)
-    //   }
-    // }).catch(() => {
-    //   Alert.alert("Alert", "Invalid email or password")
-    // })
+    const user = { email: "", password: "", ...this.state }
+    this.props.mutate({ variables: { user } }).then(({ data }) => {
+      if (data.login.token) {
+        AsyncStorage.setItem("token", data.login.token)
+        this.props.navigation.navigate("SignedIn")
+      }
+    }).catch(() => {
+      Alert.alert("Alert", "Invalid email or password")
+    })
   }
   render() {
     return (
@@ -76,7 +79,7 @@ class LoginScreen extends Component {
   }
 }
 
-const Connected = connect(state => state)(LoginScreen)
+const Connected = connect((state) => state)(LoginScreen)
 
 const LOGIN = gql`
   mutation login($user: Auth!) {

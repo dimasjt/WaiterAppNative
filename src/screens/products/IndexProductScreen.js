@@ -14,15 +14,15 @@ const image = "http://www.agrowindo.com/wp-content/uploads/2017/05/bebek-presto-
 
 const styles = StyleSheet.create({
   wrapper: {
-    margin: 0,
-    padding: 0,
-  }
+    marginLeft: 0,
+    paddingLeft: 0,
+  },
 })
 
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 const IndexProductScreen = () => {
-  const listItems = items.map(item => (
+  const listItems = items.map((item) => (
     <ListItem avatar style={styles.wrapper} key={item}>
       <Left>
         <Thumbnail source={{ uri: image }} />
