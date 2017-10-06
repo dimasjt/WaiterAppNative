@@ -22,23 +22,26 @@ const styles = StyleSheet.create({
 const items = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 const IndexProductScreen = () => {
-  const listItems = items.map((item) => (
+  const listItems = (item) => (
     <ListItem avatar style={styles.wrapper} key={item}>
       <Left>
         <Thumbnail source={{ uri: image }} />
       </Left>
       <Body>
-        <Text>Bebek Ijo</Text>
-        <Text>Bebek Ijo</Text>
+        <Text>Bebek Ijo {item}</Text>
+        <Text>Bebek Ijo {item}</Text>
       </Body>
       <Right>
         <Text note>10:10</Text>
       </Right>
     </ListItem>
-  ))
+  )
 
   return (
-    <List>{listItems}</List>
+    <List
+      dataArray={items}
+      renderRow={listItems}
+    />
   )
 }
 
