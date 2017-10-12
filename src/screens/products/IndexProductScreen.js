@@ -8,7 +8,13 @@ import {
   Text,
   Body,
   Right,
+  Button,
+  Icon,
+  Spinner,
 } from "native-base"
+import { graphql } from "react-apollo"
+
+import { GET_PRODUCTS } from "../../queries"
 
 const image = "http://www.agrowindo.com/wp-content/uploads/2017/05/bebek-presto-sambal-ijo.png"
 
@@ -19,30 +25,35 @@ const styles = StyleSheet.create({
   },
 })
 
-const items = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+const IndexProductScreen = ({ data }) => {
+  const { products, loading } = data
 
-const IndexProductScreen = () => {
-  const listItems = (item) => (
-    <ListItem avatar style={styles.wrapper} key={item}>
+  const listItems = (product) => (
+    <ListItem avatar style={styles.wrapper} key={product.id}>
       <Left>
-        <Thumbnail source={{ uri: image }} />
+        <Thumbnail small source={{ uri: image }} />
       </Left>
       <Body>
-        <Text>Bebek Ijo {item}</Text>
-        <Text>Bebek Ijo {item}</Text>
+        <Text>{product.name}</Text>
       </Body>
       <Right>
-        <Text note>10:10</Text>
+        <Button small>
+          <Icon name="ios-minus" />
+        </Button>
       </Right>
     </ListItem>
   )
 
+  if (loading) {
+    return <Spinner />
+  }
+
   return (
     <List
-      dataArray={items}
+      dataArray={products}
       renderRow={listItems}
     />
   )
 }
 
-export default IndexProductScreen
+export default graphql(GET_PRODUCTS)(IndexProductScreen)
