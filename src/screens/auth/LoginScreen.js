@@ -11,14 +11,7 @@ import {
 } from "native-base"
 import { graphql, gql } from "react-apollo"
 import { connect } from "react-redux"
-import { NavigationActions } from "react-navigation"
-
-const resetAction = NavigationActions.reset({
-  index: 0,
-  actions: [
-    NavigationActions.navigate({ routeName: "SignedIn" }),
-  ],
-})
+import { Link } from "react-router-native"
 
 class LoginScreen extends Component {
   constructor() {
@@ -29,22 +22,18 @@ class LoginScreen extends Component {
       password: "",
     }
   }
-  async componentWillMount() {
-    const token = await AsyncStorage.getItem("token")
-    if (token !== null) {
-      this.props.navigation.navigate("SignedIn")
-    }
-  }
   login = () => {
     const user = { email: "", password: "", ...this.state }
     this.props.mutate({ variables: { user } }).then(({ data }) => {
       if (data.login.token) {
         AsyncStorage.setItem("token", data.login.token)
-        this.props.navigation.navigate("SignedIn")
       }
     }).catch(() => {
       Alert.alert("Alert", "Invalid email or password")
     })
+  }
+  register = () => {
+    this.props.history.push("register")
   }
   render() {
     return (
@@ -69,7 +58,7 @@ class LoginScreen extends Component {
             </Button>
           </Col>
           <Col>
-            <Button full onPress={() => this.props.navigation.navigate("Register")}>
+            <Button full onPress={this.register}>
               <Text>Register</Text>
             </Button>
           </Col>

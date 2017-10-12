@@ -2,7 +2,8 @@ import React from "react"
 import { createStore } from "redux"
 import { ApolloProvider as Provider } from "react-apollo"
 
-import AppWithNavigationState from "./navigators/AppNavigator"
+import Routes from "./Routes"
+
 import AppReducer from "./reducers"
 
 import { apolloClient } from "./apollo"
@@ -13,7 +14,7 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={this.store} client={apolloClient}>
-        <AppWithNavigationState />
+        <Routes />
       </Provider>
     )
   }
