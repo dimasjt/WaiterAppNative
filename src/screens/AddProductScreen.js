@@ -5,7 +5,10 @@ import {
   Input,
   Button,
   Text,
+  Label,
+  Content,
 } from "native-base"
+import { StyleSheet } from "react-native"
 
 class AddProductScreen extends Component {
   static navigationOptions = {
@@ -14,20 +17,33 @@ class AddProductScreen extends Component {
 
   render() {
     return (
-      <Form>
-        <Item>
-          <Input placeholder="Name" />
-        </Item>
-        <Item>
-          <Input placeholder="Price" />
-        </Item>
-        <Item>
-          <Input placeholder="Category" />
-        </Item>
-        <Button full>
-          <Text>Save</Text>
-        </Button>
-      </Form>
+      <Content>
+        <Form>
+          <Item stackedLabel>
+            <Label>Name</Label>
+            <Input />
+          </Item>
+          <Item stackedLabel>
+            <Label>Price</Label>
+            <Input />
+          </Item>
+          <Item stackedLabel>
+            <Label>SKU</Label>
+            <Input />
+          </Item>
+          <Item stackedLabel>
+            <Label>Category</Label>
+            <Input />
+          </Item>
+          <Item stackedLabel>
+            <Label>Description</Label>
+            <Input multiline numberOfLines={4} />
+          </Item>
+          <Button full>
+            <Text>Save</Text>
+          </Button>
+        </Form>
+      </Content>
     )
   }
 }
