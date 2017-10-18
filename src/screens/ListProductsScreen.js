@@ -12,6 +12,7 @@ import {
   Spinner,
 } from "native-base"
 import { graphql } from "react-apollo"
+import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 import { GET_PRODUCTS } from "../queries"
 
@@ -22,19 +23,25 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     paddingLeft: 0,
   },
+  btnLeft: {
+    marginLeft: 10,
+  },
+  btnRight: {
+    marginRight: 10,
+  },
 })
 
 class ListProductsScreen extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: "List Products",
     headerLeft: (
-      <Button transparent>
-        <Text>Bar</Text>
+      <Button transparent onPress={() => navigation.navigate("DrawerOpen")} style={styles.btnLeft}>
+        <Icon name="menu" size={30} />
       </Button>
     ),
     headerRight: (
-      <Button transparent onPress={() => navigation.navigate("AddProduct")}>
-        <Text>Add New</Text>
+      <Button transparent onPress={() => navigation.navigate("AddProduct")} style={styles.btnRight}>
+        <Icon name="plus" size={30} />
       </Button>
     ),
   })
