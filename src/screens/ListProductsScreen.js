@@ -58,8 +58,8 @@ class ListProductsScreen extends Component {
           <Text>{product.name}</Text>
         </Body>
         <Right>
-          <Button small>
-            <Text>-</Text>
+          <Button small rounded warning>
+            <Icon name="minus" size={30} color="white" />
           </Button>
         </Right>
       </ListItem>

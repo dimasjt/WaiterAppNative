@@ -19,10 +19,12 @@ import AddProductScreen from "../screens/AddProductScreen"
 const CustomDrawerItems = (props) => (
   <View>
     <DrawerItems {...props} />
-    <Button onPress={async () => {
-      await AsyncStorage.removeItem("token")
-      props.navigation.navigate("Login")
-    }}
+    <Button
+      onPress={async () => {
+        await AsyncStorage.removeItem("token")
+        props.navigation.navigate("Login")
+      }}
+      transparent
     >
       <Text>
         Logout
