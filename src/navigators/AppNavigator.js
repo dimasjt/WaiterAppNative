@@ -1,39 +1,70 @@
 import React from "react"
-import { addNavigationHelpers, StackNavigator } from "react-navigation"
+import {
+  addNavigationHelpers,
+  StackNavigator,
+  DrawerNavigator,
+  TabNavigator,
+  DrawerItems,
+} from "react-navigation"
+import { View, Text, Button } from "native-base"
 import { connect } from "react-redux"
+import { AsyncStorage } from "react-native"
 
 import LoginScreen from "../screens/LoginScreen"
 import RegisterScreen from "../screens/RegisterScreen"
+import SettingScreen from "../screens/SettingScreen"
+import IndexProductScreen from "../screens/IndexProductScreen"
+import AddProductScreen from "../screens/AddProductScreen"
 
-import MainDrawer from "./MainDrawer"
+const CustomDrawerItems = (props) => (
+  <View>
+    <DrawerItems {...props} />
+    <Button onPress={async () => {
+      await AsyncStorage.removeItem("token")
+      props.navigation.navigate("Login")
+    }}
+    >
+      <Text>
+        Logout
+      </Text>
+    </Button>
+  </View>
+)
 
-const SignedOut = StackNavigator({
-  Login: {
-    screen: LoginScreen,
-    navigationOptions: {
-      title: "Login",
-    },
+const ProductStack = StackNavigator({
+  IndexProduct: {
+    screen: IndexProductScreen,
   },
-  Register: {
-    screen: RegisterScreen,
+  AddProduct: {
+    screen: AddProductScreen,
+  },
+})
+
+const MainDrawer = DrawerNavigator({
+  Product: {
+    screen: ProductStack,
+  },
+  Setting: {
+    screen: SettingScreen,
+  },
+}, {
+  contentComponent: CustomDrawerItems,
+})
+
+export const AppNavigator = TabNavigator({
+  Login: { screen: LoginScreen },
+  Register: { screen: RegisterScreen },
+  Main: {
+    screen: MainDrawer,
     navigationOptions: {
-      title: "Register",
+      tabBarVisible: false,
     },
   },
 }, {
   initialRouteName: "Login",
-})
-
-export const AppNavigator = StackNavigator({
-  SignedOut: {
-    screen: SignedOut,
-  },
-  SignedIn: {
-    screen: MainDrawer,
-  },
-}, {
-  headerMode: "none",
-  initialRouteName: "SignedOut",
+  animationEnabled: false,
+  swipeEnabled: false,
+  tabBarPosition: "bottom",
 })
 
 const AppWithNavigationState = ({ dispatch, nav, auth }) => (

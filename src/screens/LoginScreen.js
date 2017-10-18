@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { View, StyleSheet, Alert, AsyncStorage } from "react-native"
+import { StyleSheet, Alert, AsyncStorage } from "react-native"
 import {
   Button,
   Form,
@@ -8,6 +8,8 @@ import {
   Grid,
   Col,
   Text,
+  View,
+  H1,
 } from "native-base"
 import { graphql, gql } from "react-apollo"
 import { connect } from "react-redux"
@@ -20,19 +22,28 @@ const resetAction = NavigationActions.reset({
   ],
 })
 
-class LoginScreen extends Component {
-  constructor() {
-    super()
+const styles = StyleSheet.create({
+  container: {
+    marginTop: 100,
+  },
+  heading: {
+    textAlign: "center",
+    marginBottom: 60,
+  },
+})
 
-    this.state = {
-      email: "",
-      password: "",
-    }
+class LoginScreen extends Component {
+  static navigationOptions = {
+    title: "Login",
+    tabBarVisible: false,
   }
+
+  state = { email: "", password: "" }
+
   async componentWillMount() {
     const token = await AsyncStorage.getItem("token")
     if (token !== null) {
-      this.props.navigation.navigate("SignedIn")
+      this.props.navigation.navigate("Main")
     }
   }
   login = () => {
@@ -40,7 +51,9 @@ class LoginScreen extends Component {
     this.props.mutate({ variables: { user } }).then(({ data }) => {
       if (data.login.token) {
         AsyncStorage.setItem("token", data.login.token)
-        this.props.navigation.navigate("SignedIn")
+        this.props.navigation.navigate("Main")
+      } else {
+        Alert.alert("Alert", "Invalid email or password")
       }
     }).catch(() => {
       Alert.alert("Alert", "Invalid email or password")
@@ -48,33 +61,36 @@ class LoginScreen extends Component {
   }
   render() {
     return (
-      <Form>
-        <Item>
-          <Input
-            placeholder="Email"
-            onChangeText={(email) => this.setState({ email })}
-          />
-        </Item>
-        <Item>
-          <Input
-            placeholder="Password"
-            secureTextEntry
-            onChangeText={(password) => this.setState({ password })}
-          />
-        </Item>
-        <Grid>
-          <Col>
-            <Button full onPress={this.login}>
-              <Text>Logins</Text>
-            </Button>
-          </Col>
-          <Col>
-            <Button full onPress={() => this.props.navigation.navigate("Register")}>
-              <Text>Register</Text>
-            </Button>
-          </Col>
-        </Grid>
-      </Form>
+      <View style={styles.container}>
+        <H1 style={styles.heading}>WaiterApp</H1>
+        <Form>
+          <Item>
+            <Input
+              placeholder="Email"
+              onChangeText={(email) => this.setState({ email })}
+            />
+          </Item>
+          <Item>
+            <Input
+              placeholder="Password"
+              secureTextEntry
+              onChangeText={(password) => this.setState({ password })}
+            />
+          </Item>
+          <Grid>
+            <Col>
+              <Button full onPress={this.login}>
+                <Text>Login</Text>
+              </Button>
+            </Col>
+            <Col>
+              <Button full info onPress={() => this.props.navigation.navigate("Register")}>
+                <Text>Register</Text>
+              </Button>
+            </Col>
+          </Grid>
+        </Form>
+      </View>
     )
   }
 }
