@@ -8,7 +8,6 @@ import {
   Label,
   Content,
 } from "native-base"
-import { StyleSheet } from "react-native"
 
 class AddProductScreen extends Component {
   static navigationOptions = {

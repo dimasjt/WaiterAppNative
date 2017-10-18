@@ -51,15 +51,14 @@ class ListProductsScreen extends Component {
 
     const listItems = (product) => (
       <ListItem avatar style={styles.wrapper} key={product.id}>
-        <Left>
-          <Thumbnail small source={{ uri: image }} />
-        </Left>
+        <Thumbnail small source={{ uri: image }} style={{ width: 30, height: 30 }} />
         <Body>
           <Text>{product.name}</Text>
+          <Text>{product.price}</Text>
         </Body>
         <Right>
-          <Button small rounded warning>
-            <Icon name="minus" size={30} color="white" />
+          <Button small rounded>
+            <Icon name="minus" size={30} color="black" />
           </Button>
         </Right>
       </ListItem>
