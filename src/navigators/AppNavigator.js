@@ -13,7 +13,7 @@ import { AsyncStorage } from "react-native"
 import LoginScreen from "../screens/LoginScreen"
 import RegisterScreen from "../screens/RegisterScreen"
 import SettingScreen from "../screens/SettingScreen"
-import IndexProductScreen from "../screens/IndexProductScreen"
+import ListProductsScreen from "../screens/ListProductsScreen"
 import AddProductScreen from "../screens/AddProductScreen"
 
 const CustomDrawerItems = (props) => (
@@ -31,18 +31,12 @@ const CustomDrawerItems = (props) => (
   </View>
 )
 
-const ProductStack = StackNavigator({
-  IndexProduct: {
-    screen: IndexProductScreen,
-  },
-  AddProduct: {
-    screen: AddProductScreen,
-  },
-})
-
 const MainDrawer = DrawerNavigator({
   Product: {
-    screen: ProductStack,
+    screen: StackNavigator({
+      ListProducts: { screen: ListProductsScreen },
+      AddProduct: { screen: AddProductScreen },
+    }),
   },
   Setting: {
     screen: SettingScreen,

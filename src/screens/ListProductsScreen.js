@@ -24,10 +24,20 @@ const styles = StyleSheet.create({
   },
 })
 
-class IndexProductScreen extends Component {
-  static navigationOptions = {
+class ListProductsScreen extends Component {
+  static navigationOptions = ({ navigation }) => ({
     title: "List Products",
-  }
+    headerLeft: (
+      <Button transparent>
+        <Text>Bar</Text>
+      </Button>
+    ),
+    headerRight: (
+      <Button transparent onPress={() => navigation.navigate("AddProduct")}>
+        <Text>Add New</Text>
+      </Button>
+    ),
+  })
 
   render() {
     const { products, loading } = this.props.data
@@ -61,4 +71,4 @@ class IndexProductScreen extends Component {
   }
 }
 
-export default graphql(GET_PRODUCTS)(IndexProductScreen)
+export default graphql(GET_PRODUCTS)(ListProductsScreen)
