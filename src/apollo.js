@@ -1,8 +1,10 @@
 import { ApolloClient, createNetworkInterface } from "react-apollo"
-import { AsyncStorage } from "react-native"
+import { AsyncStorage, Platform } from "react-native"
+
+const host = Platform.OS === "ios" ? "0.0.0.0" : "10.0.2.2"
 
 const networkInterface = createNetworkInterface({
-  uri: "http://10.0.2.2:3000/api/graphql",
+  uri: `http://${host}:3000/api/graphql`,
 })
 
 networkInterface.use([{

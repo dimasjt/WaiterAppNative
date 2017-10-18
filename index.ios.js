@@ -1,3 +1,4 @@
-import { AppRegistry } from 'react-native';
-import App from './src/App';
-AppRegistry.registerComponent('WaiterNative', () => App);
+import { AppRegistry } from "react-native";
+import App from "./src/App";
+
+AppRegistry.registerComponent("WaiterApp", () => App)
