@@ -1,27 +1,22 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from "react"
+import { createStore } from "redux"
+import { ApolloProvider as Provider } from "react-apollo"
 
-import Login from "./components/Login"
+import { AppNavigator } from "./navigators/AppNavigator"
+import AppReducer from "./reducers"
 
-export default Login
+import { apolloClient } from "./apollo"
 
 class App extends React.Component {
+  store = createStore(AppReducer)
+
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Open up Apps.js to start working on your app!</Text>
-        <Text>Changes you make will automatically reload.</Text>
-        <Text>Shake your phone to open the developer menu.</Text>
-      </View>
-    );
+      <Provider store={this.store} client={apolloClient}>
+        <AppNavigator />
+      </Provider>
+    )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
