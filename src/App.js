@@ -1,5 +1,6 @@
 import Expo from "expo"
 import React from "react"
+import { StatusBar, View } from "react-native"
 import { ApolloProvider as Provider } from "react-apollo"
 
 import { AppNavigator } from "./navigators/AppNavigator"
@@ -27,9 +28,11 @@ class App extends React.Component {
     }
 
     return (
-      <Provider store={store} client={apolloClient}>
-        <AppNavigator />
-      </Provider>
+      <View style={{ marginTop: StatusBar.currentHeight }}>
+        <Provider store={store} client={apolloClient}>
+          <AppNavigator />
+        </Provider>
+      </View>
     )
   }
 }
