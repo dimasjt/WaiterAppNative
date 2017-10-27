@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import { StyleSheet } from "react-native"
+import { StyleSheet, Alert } from "react-native"
 import {
   List,
   ListItem,
@@ -11,10 +11,12 @@ import {
   Button,
   Spinner,
 } from "native-base"
-import { graphql } from "react-apollo"
+import { graphql, compose } from "react-apollo"
 import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import PropTypes from "prop-types"
 
 import { GET_PRODUCTS } from "../queries"
+import { DELETE_PRODUCT } from "../mutations"
 
 const styles = StyleSheet.create({
   wrapper: {
@@ -44,18 +46,33 @@ class ListProductsScreen extends Component {
     ),
   })
 
+  handleDelete(id) {
+    const deleteProduct = this.props.deleteProduct
+
+    const actions = [
+      {
+        text: "YES", onPress() { deleteProduct(id) },
+      },
+      { text: "CANCEL", onPress() { } },
+    ]
+
+    Alert.alert("Alert", "Are you sure want to delete this product?", actions)
+  }
+
   render() {
     const { products, loading } = this.props.data
 
     const listItems = (product) => (
       <ListItem avatar style={styles.wrapper} key={product.id}>
-        <Thumbnail small source={{ uri: product.image.thumb }} style={{ width: 30, height: 30 }} />
+        <Left>
+          <Thumbnail small source={{ uri: product.image.thumb }} style={{ width: 30, height: 30 }} />
+        </Left>
         <Body>
           <Text>{product.name}</Text>
           <Text>{product.price.human}</Text>
         </Body>
         <Right>
-          <Button small rounded>
+          <Button small rounded onPress={() => this.handleDelete(product.id)}>
             <Icon name="minus" size={30} color="black" />
           </Button>
         </Right>
@@ -75,4 +92,21 @@ class ListProductsScreen extends Component {
   }
 }
 
-export default graphql(GET_PRODUCTS)(ListProductsScreen)
+ListProductsScreen.propTypes = {
+  data: PropTypes.object.isRequired,
+  deleteProduct: PropTypes.func.isRequired,
+}
+
+export default compose(
+  graphql(GET_PRODUCTS),
+  graphql(DELETE_PRODUCT, {
+    props: ({ ownProps, mutate }) => ({
+      deleteProduct(id) {
+        mutate({ variables: { id } }).then(() => {
+          Alert.alert("Info", "Success delete product.")
+          ownProps.data.refetch()
+        })
+      },
+    }),
+  }),
+)(ListProductsScreen)
