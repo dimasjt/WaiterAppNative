@@ -1,11 +1,13 @@
 import { combineReducers } from "redux"
+import { reducer as form } from "redux-form"
 
 import auth from "./auth"
-// import nav from "./nav"
+import { apolloReducer as apollo } from "../apollo"
 
 const AppReducer = combineReducers({
   auth,
-  // nav,
+  form,
+  apollo,
 })
 
 export default AppReducer

@@ -1,16 +1,14 @@
 import Expo from "expo"
 import React from "react"
-import { createStore } from "redux"
 import { ApolloProvider as Provider } from "react-apollo"
 
 import { AppNavigator } from "./navigators/AppNavigator"
-import AppReducer from "./reducers"
 
 import { apolloClient } from "./apollo"
+import store from "./store"
 
 class App extends React.Component {
   state = { isReady: false }
-  store = createStore(AppReducer)
 
   async componentWillMount() {
     await Expo.Font.loadAsync({
@@ -29,7 +27,7 @@ class App extends React.Component {
     }
 
     return (
-      <Provider store={this.store} client={apolloClient}>
+      <Provider store={store} client={apolloClient}>
         <AppNavigator />
       </Provider>
     )

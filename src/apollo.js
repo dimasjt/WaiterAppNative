@@ -1,5 +1,5 @@
 import { ApolloClient, createNetworkInterface } from "react-apollo"
-import { AsyncStorage, Platform } from "react-native"
+import { AsyncStorage } from "react-native"
 
 const networkInterface = createNetworkInterface({
   uri: "https://waiterapp-staging.herokuapp.com/api/graphql",
