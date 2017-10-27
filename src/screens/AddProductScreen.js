@@ -1,13 +1,12 @@
 import React, { Component } from "react"
 import {
-  Form,
-  Item,
-  Input,
-  Button,
-  Text,
-  Label,
   Content,
 } from "native-base"
+import { graphql } from "react-apollo"
+
+import ProductForm from "../components/forms/ProductForm"
+
+import { CREATE_PRODUCT } from "../mutations"
 
 class AddProductScreen extends Component {
   static navigationOptions = {
@@ -17,34 +16,16 @@ class AddProductScreen extends Component {
   render() {
     return (
       <Content>
-        <Form>
-          <Item stackedLabel>
-            <Label>Name</Label>
-            <Input />
-          </Item>
-          <Item stackedLabel>
-            <Label>Price</Label>
-            <Input />
-          </Item>
-          <Item stackedLabel>
-            <Label>SKU</Label>
-            <Input />
-          </Item>
-          <Item stackedLabel>
-            <Label>Category</Label>
-            <Input />
-          </Item>
-          <Item stackedLabel>
-            <Label>Description</Label>
-            <Input multiline numberOfLines={4} />
-          </Item>
-          <Button full>
-            <Text>Save</Text>
-          </Button>
-        </Form>
+        <ProductForm onSubmit={this.props.createProduct} />
       </Content>
     )
   }
 }
 
-export default AddProductScreen
+export default graphql(CREATE_PRODUCT, {
+  props: ({ mutate }) => ({
+    createProduct(product) {
+      console.log(product)
+    },
+  }),
+})(AddProductScreen)
