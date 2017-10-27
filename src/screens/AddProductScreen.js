@@ -1,8 +1,10 @@
 import React, { Component } from "react"
+import { Alert } from "react-native"
 import {
   Content,
 } from "native-base"
 import { graphql } from "react-apollo"
+import PropTypes from "prop-types"
 
 import ProductForm from "../components/forms/ProductForm"
 
@@ -22,10 +24,18 @@ class AddProductScreen extends Component {
   }
 }
 
+AddProductScreen.propTypes = {
+  createProduct: PropTypes.func.isRequired,
+}
+
 export default graphql(CREATE_PRODUCT, {
   props: ({ mutate }) => ({
     createProduct(product) {
-      console.log(product)
+      mutate({ variables: { product } }).then(() => {
+        Alert.alert("Success", "Successfully created product.")
+      }).catch((err) => {
+        Alert.alert("Error", err.message)
+      })
     },
   }),
 })(AddProductScreen)
