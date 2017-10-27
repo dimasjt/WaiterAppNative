@@ -1,7 +1,11 @@
 {
   "expo": {
-    "sdkVersion": "20.0.0"
-  },
-  "name": "WaiterApp",
-  "displayName": "WaiterApp"
+    "name": "WaiterApp",
+    "description": "Waiter application for restourant or other shop",
+    "orientation": "portrait",
+    "sdkVersion": "21.0.0",
+    "ios": {
+      "supportsTablet": true
+    }
+  }
 }
