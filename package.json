@@ -13,7 +13,8 @@
     "eslint-plugin-jsx-a11y": "5",
     "eslint-plugin-react": "^7.4.0",
     "jest-expo": "~20.0.0",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "react-test-renderer": "16.0.0-alpha.12",
+    "redux-devtools-extension": "^2.13.2"
   },
   "scripts": {
     "start": "react-native start",
@@ -27,6 +28,7 @@
   "dependencies": {
     "expo": "21",
     "native-base": "^2.3.2",
+    "prop-types": "^15.6.0",
     "react": "16.0.0-alpha.12",
     "react-apollo": "^1.4.16",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
