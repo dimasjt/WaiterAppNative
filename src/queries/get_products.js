@@ -5,6 +5,13 @@ export default gql`
     products {
       id
       name
+      price {
+        human
+        number
+      }
+      image {
+        thumb
+      }
     }
   }
 `

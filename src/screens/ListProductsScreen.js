@@ -16,8 +16,6 @@ import Icon from "react-native-vector-icons/MaterialCommunityIcons"
 
 import { GET_PRODUCTS } from "../queries"
 
-const image = "http://www.agrowindo.com/wp-content/uploads/2017/05/bebek-presto-sambal-ijo.png"
-
 const styles = StyleSheet.create({
   wrapper: {
     marginLeft: 0,
@@ -51,10 +49,10 @@ class ListProductsScreen extends Component {
 
     const listItems = (product) => (
       <ListItem avatar style={styles.wrapper} key={product.id}>
-        <Thumbnail small source={{ uri: image }} style={{ width: 30, height: 30 }} />
+        <Thumbnail small source={{ uri: product.image.thumb }} style={{ width: 30, height: 30 }} />
         <Body>
           <Text>{product.name}</Text>
-          <Text>{product.price}</Text>
+          <Text>{product.price.human}</Text>
         </Body>
         <Right>
           <Button small rounded>
