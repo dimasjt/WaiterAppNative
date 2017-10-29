@@ -16,7 +16,6 @@ class App extends React.Component {
       Roboto: require("native-base/Fonts/Roboto.ttf"),
       Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
       Ionicons: require("@expo/vector-icons/fonts/Ionicons.ttf"),
-      MaterialCommunityIcons: require("react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"),
     })
 
     this.setState({ isReady: true })
@@ -28,7 +27,7 @@ class App extends React.Component {
     }
 
     return (
-      <View style={{ marginTop: StatusBar.currentHeight }}>
+      <View style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
         <Provider store={store} client={apolloClient}>
           <AppNavigator />
         </Provider>

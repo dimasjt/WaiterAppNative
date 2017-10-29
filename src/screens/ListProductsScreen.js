@@ -12,7 +12,7 @@ import {
   Spinner,
 } from "native-base"
 import { graphql, compose } from "react-apollo"
-import Icon from "react-native-vector-icons/MaterialCommunityIcons"
+import { MaterialCommunityIcons as Icon } from "@expo/vector-icons"
 import PropTypes from "prop-types"
 
 import { GET_PRODUCTS } from "../queries"
@@ -36,12 +36,12 @@ class ListProductsScreen extends Component {
     title: "List Products",
     headerLeft: (
       <Button transparent onPress={() => navigation.navigate("DrawerOpen")} style={styles.btnLeft}>
-        <Icon name="menu" size={30} />
+        {<Icon name="menu" size={30} />}
       </Button>
     ),
     headerRight: (
       <Button transparent onPress={() => navigation.navigate("AddProduct")} style={styles.btnRight}>
-        <Icon name="plus" size={30} />
+        {<Icon name="plus" size={30} />}
       </Button>
     ),
   })
@@ -59,13 +59,27 @@ class ListProductsScreen extends Component {
     Alert.alert("Alert", "Are you sure want to delete this product?", actions)
   }
 
+  renderThumb(product) {
+    if (product.image.thumb) {
+      return (
+        <Thumbnail
+          small
+          source={{ uri: product.image.thumb }}
+          style={{ width: 50, height: 50 }}
+        />
+      )
+    }
+
+    return null
+  }
+
   render() {
     const { products, loading } = this.props.data
 
     const listItems = (product) => (
       <ListItem avatar style={styles.wrapper} key={product.id}>
         <Left>
-          <Thumbnail small source={{ uri: product.image.thumb }} style={{ width: 30, height: 30 }} />
+          {this.renderThumb(product)}
         </Left>
         <Body>
           <Text>{product.name}</Text>
@@ -73,7 +87,7 @@ class ListProductsScreen extends Component {
         </Body>
         <Right>
           <Button small rounded onPress={() => this.handleDelete(product.id)}>
-            <Icon name="minus" size={30} color="black" />
+            {<Icon name="minus" size={30} color="black" />}
           </Button>
         </Right>
       </ListItem>
